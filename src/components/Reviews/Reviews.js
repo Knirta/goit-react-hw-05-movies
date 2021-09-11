@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import * as moviesAPI from "../../services/movies-api";
-import PropTypes from "prop-types";
 import s from "./Reviews.module.css";
 
 const Reviews = () => {
@@ -17,8 +16,8 @@ const Reviews = () => {
   return reviews.length ? (
     <ul>
       {reviews.map(({ id, author, content }) => (
-        <li key={id}>
-          <p>Author: {author}</p>
+        <li key={id} className={s.ListItem}>
+          <p className={s.Author}>Author: {author}</p>
           <p>{content}</p>
         </li>
       ))}

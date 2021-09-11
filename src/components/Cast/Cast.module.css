@@ -1,0 +1,21 @@
+.List {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -30px;
+  margin-left: -30px;
+}
+
+.ListItem {
+  text-align: center;
+  flex-basis: calc(100% / 4 - 30px);
+  padding: 10px;
+  margin-top: 30px;
+  margin-left: 30px;
+  box-shadow: 0px -1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.Name {
+  font-weight: 500;
+  font-size: 18px;
+}

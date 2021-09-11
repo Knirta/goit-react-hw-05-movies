@@ -1,0 +1,12 @@
+.Wrapper {
+  display: flex;
+}
+
+.Details {
+  padding: 15px;
+}
+
+.Title {
+  font-size: 26px;
+  font-weight: 600;
+}

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
 import * as moviesAPI from "../../services/movies-api";
 import s from "./Cast.module.css";
 
@@ -15,20 +14,21 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <ul>
-      {actors &&
-        actors.map(({ id, name, profile_path, character }) => (
-          <li key={id}>
-            <p>{name}</p>
+    actors && (
+      <ul className={s.List}>
+        {actors.map(({ id, name, profile_path, character }) => (
+          <li key={id} className={s.ListItem}>
             <img
               src={`https://image.tmdb.org/t/p/original/${profile_path}`}
-              width="100"
+              width="150"
               alt={name}
             />
+            <p className={s.Name}> {name}</p>
             <p>character: {character}</p>
           </li>
         ))}
-    </ul>
+      </ul>
+    )
   );
 };
 

@@ -6,7 +6,7 @@ export function fetchTrendingMovies() {
     api_key: API_KEY,
   });
 
-  const url = `${BASE_URL}/trending/movies/day?${searchParams}`;
+  const url = `${BASE_URL}/trending/movie/day?${searchParams}`;
   return fetch(url).then((response) => response.json());
 }
 

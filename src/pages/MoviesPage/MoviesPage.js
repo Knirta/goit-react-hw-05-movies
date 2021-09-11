@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
-import * as moviesAPI from "../services/movies-api";
+import * as moviesAPI from "../../services/movies-api";
+import s from "./MoviesPage.module.css";
 
 const MoviesPage = () => {
   const [input, setInput] = useState("");
@@ -31,7 +32,7 @@ const MoviesPage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={s.Form}>
         <input
           type="text"
           name="title"
@@ -41,12 +42,13 @@ const MoviesPage = () => {
         />
         <button type="submit">Search</button>
       </form>
-      <h1>results</h1>
       <ul>
         {movies &&
           movies.map(({ id, original_title }) => (
-            <li key={id}>
-              <Link to={`${url}/${id}`}>{original_title}</Link>
+            <li key={id} className={s.ListItem}>
+              <Link to={`${url}/${id}`} className={s.Link}>
+                {original_title}
+              </Link>
             </li>
           ))}
       </ul>
