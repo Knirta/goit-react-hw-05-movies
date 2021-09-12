@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import {
   useParams,
   NavLink,
@@ -6,10 +6,20 @@ import {
   Route,
   useHistory,
 } from "react-router-dom";
-import Cast from "../../components/Cast";
-import Reviews from "../../components/Reviews";
+import Loader from "react-loader-spinner";
+//import Cast from "../../components/Cast";
+//import Reviews from "../../components/Reviews";
 import * as moviesAPI from "../../services/movies-api";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import s from "./MovieDetailsPage.module.css";
+
+const Cast = lazy(() =>
+  import("../../components/Cast" /* webpackChunkName: 'cast' */)
+);
+
+const Reviews = lazy(() =>
+  import("../../components/Reviews" /* webpackChunkName: 'reviews' */)
+);
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -62,12 +72,18 @@ const MovieDetailsPage = () => {
         </li>
       </ul>
 
-      <Route path={`${path}/cast`}>
-        <Cast />
-      </Route>
-      <Route path={`${path}/reviews`}>
-        <Reviews />
-      </Route>
+      <Suspense
+        fallback={
+          <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
+        }
+      >
+        <Route path={`${path}/cast`}>
+          <Cast />
+        </Route>
+        <Route path={`${path}/reviews`}>
+          <Reviews />
+        </Route>
+      </Suspense>
     </>
   );
 };
