@@ -5,10 +5,9 @@ import {
   useRouteMatch,
   Route,
   useHistory,
+  useLocation,
 } from "react-router-dom";
 import Loader from "react-loader-spinner";
-//import Cast from "../../components/Cast";
-//import Reviews from "../../components/Reviews";
 import * as moviesAPI from "../../services/movies-api";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import s from "./MovieDetailsPage.module.css";
@@ -26,18 +25,19 @@ const MovieDetailsPage = () => {
   const { url, path } = useRouteMatch();
   const [movie, setMovie] = useState(null);
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     moviesAPI.fetchMovieById(movieId).then(setMovie);
   }, [movieId]);
 
-  const handleClick = (e) => {
-    history.goBack();
+  const onGoBack = () => {
+    history.push(location?.state?.from ?? "/");
   };
 
   return (
     <>
-      <button type="button" className={s.Btn} onClick={handleClick}>
+      <button type="button" className={s.Btn} onClick={onGoBack}>
         Go back &#8592;
       </button>
       {movie && (
@@ -65,10 +65,24 @@ const MovieDetailsPage = () => {
       <h2>Additional information</h2>
       <ul>
         <li>
-          <NavLink to={`${url}/cast`}>Cast</NavLink>
+          <NavLink
+            to={{
+              pathname: `${url}/cast`,
+              state: { from: location.state.from },
+            }}
+          >
+            Cast
+          </NavLink>
         </li>
         <li>
-          <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+          <NavLink
+            to={{
+              pathname: `${url}/reviews`,
+              state: { from: location.state.from },
+            }}
+          >
+            Reviews
+          </NavLink>
         </li>
       </ul>
 

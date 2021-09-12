@@ -60,7 +60,7 @@ const MoviesPage = () => {
         />
         <button type="submit">Search</button>
       </form>
-      <MoviesList movies={movies} url={url} />
+      <MoviesList movies={movies} url={url} location={location} />
     </>
   );
 };
