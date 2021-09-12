@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
+import MoviesList from "../../components/MoviesList";
 import * as moviesAPI from "../../services/movies-api";
 import s from "./MoviesPage.module.css";
 
@@ -42,16 +43,7 @@ const MoviesPage = () => {
         />
         <button type="submit">Search</button>
       </form>
-      <ul>
-        {movies &&
-          movies.map(({ id, original_title }) => (
-            <li key={id} className={s.ListItem}>
-              <Link to={`${url}/${id}`} className={s.Link}>
-                {original_title}
-              </Link>
-            </li>
-          ))}
-      </ul>
+      <MoviesList movies={movies} url={url} />
     </>
   );
 };
