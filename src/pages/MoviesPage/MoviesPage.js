@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, useHistory, useLocation } from "react-router-dom";
 import MoviesList from "../../components/MoviesList";
 import * as moviesAPI from "../../services/movies-api";
 import s from "./MoviesPage.module.css";
@@ -11,12 +11,22 @@ const MoviesPage = () => {
 
   const { url } = useRouteMatch();
 
+  const location = useLocation();
+  const history = useHistory();
+
+  const queryParam = new URLSearchParams(location.search).get("query") ?? "";
+
   const handleChange = (e) => {
     setInput(e.currentTarget.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (input !== "") {
+      history.push({ ...location, search: `query=${input}` });
+    } else {
+      history.push({ ...location, search: null });
+    }
     setQuery(input);
     setInput("");
     setMovies([]);
@@ -30,6 +40,13 @@ const MoviesPage = () => {
       setMovies((prev) => [...prev, ...results]);
     });
   }, [query]);
+
+  useEffect(() => {
+    if (queryParam === "") {
+      return;
+    }
+    setQuery(queryParam);
+  }, [queryParam]);
 
   return (
     <>
